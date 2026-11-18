@@ -21,14 +21,16 @@ html {
   scroll-behavior: auto; /* GSAP ScrollTrigger handles scroll */
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
+  height: 100%;
 }
 
 body {
   font-family: var(--font-body);
-  background: var(--color-bg);
+  background: var(--cream);
   color: var(--color-ink);
   line-height: 1.5;
   min-height: 100vh;
+  height: 100%;
   overflow-x: hidden;
   position: relative;
 }
