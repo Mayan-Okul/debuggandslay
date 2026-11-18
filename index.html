@@ -1,51 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Debugg and Slay Week: Beyond the Code — celebrate the culture, creativity and innovation. A week of dress codes, talent, and community at LakeHub, Zone01 Kisumu.">
-  <meta name="theme-color" content="#ffffff">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Debugg and Slay Week</title>
+    <meta
+      name="description"
+      content="Zone01 Kisumu Debugg and Slay Week: 30th November – 4th December 2026 at LakeHub. A fashion mood board for the week."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Debugg and Slay Week" />
+    <meta
+      property="og:description"
+      content="30th November – 4th December 2026, LakeHub, Zone01 Kisumu. Style away!"
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Caveat:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Rubik+Distressed&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/tokens.css" />
+    <link rel="stylesheet" href="/src/styles/base.css" />
+    <link rel="stylesheet" href="/src/styles/slides.css" />
+  </head>
+  <body>
+    <nav class="nav" id="nav" aria-label="Days"></nav>
 
-  <!-- Open Graph / Social -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Debugg and Slay Week">
-  <meta property="og:description" content="Beyond the Code: celebrate the culture, creativity and innovation. Nov 30 – Dec 4, 2026 at LakeHub, Zone01 Kisumu.">
-  <meta property="og:image" content="/og-image.jpg">
-  <meta property="og:url" content="https://debuggandslay.zone01kisumu.dev/">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Debugg and Slay Week">
-  <meta name="twitter:description" content="Beyond the Code: celebrate the culture, creativity and innovation. Nov 30 – Dec 4, 2026 at LakeHub, Zone01 Kisumu.">
+    <main id="main">
+      <section class="intro" id="intro">
+        <div class="band" aria-hidden="true"></div>
+        <div class="intro-body">
+          <div class="intro-left">
+            <img
+              class="logo"
+              src="/logo/zone01-kisumu.png"
+              alt="Zone01 Kisumu logo"
+              width="1031"
+              height="401"
+            />
+            <h1 class="chips" id="headline" aria-label="Debugg and Slay Week"></h1>
+            <ul class="facts">
+              <li class="strip">30th November – 4th December 2026</li>
+              <li class="strip t">LakeHub, Zone01 Kisumu</li>
+              <li class="strip o">Best-dressed awards</li>
+            </ul>
+            <div class="stamp">MANDATORY</div>
+          </div>
 
-  <title>Debugg and Slay Week</title>
+          <div class="note" style="--tilt: 1.5deg">
+            <img src="/note.png" alt="" width="818" height="607" />
+            <div class="note-text">
+              <p class="kicker">WELCOME</p>
+              <p>
+                This is your Debug &amp; Slay Week fashion mood board! Think of it as inspo, not
+                instructions. The themes are here to set the vibe and spark ideas, but how you
+                interpret them is entirely up to you. Mix it up, add your personal flavour and most
+                importantly, have fun with it!
+              </p>
+              <p class="kicker">STYLE AWAY! ✌🏽</p>
+            </div>
+          </div>
+        </div>
+        <div class="band" aria-hidden="true"></div>
+      </section>
+    </main>
 
-  <!-- Preload hero stickers -->
-  <link rel="preload" as="image" type="image/webp" href="/stickers/careerwear/s01.webp">
-  <link rel="preload" as="image" type="image/webp" href="/stickers/careerwear/s05.webp">
-  <link rel="preload" as="image" type="image/webp" href="/logo/zone01-kisumu-sticker.webp">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/src/styles/tokens.css">
-  <link rel="stylesheet" href="/src/styles/base.css">
-  <link rel="stylesheet" href="/src/styles/slides.css">
-</head>
-<body>
-  <!-- Fixed Navigation -->
-  <nav class="nav-bar" role="navigation" aria-label="Daily dress codes">
-    <!-- Tabs injected by JS -->
-  </nav>
-
-  <!-- Main Content -->
-  <main class="slides-container" role="main">
-    <!-- Slides injected by JS -->
-  </main>
-
-  <!-- Zoom Modal -->
-  <div class="zoom-backdrop" role="dialog" aria-modal="true" aria-label="Sticker close-up">
-    <div class="zoom-content" role="img" aria-label="Enlarged sticker view"></div>
-    <button class="zoom-close" aria-label="Close zoom">&times;</button>
-  </div>
-
-  <!-- Module Script -->
-  <script type="module" src="/src/main.js"></script>
-</body>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
