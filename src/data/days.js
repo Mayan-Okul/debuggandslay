@@ -58,11 +58,12 @@ export const days = [
     decor: [
       { type: 'tape', mobile: { x: 30, y: 5, w: 20, h: 3, rot: -10 }, tablet: { x: 28, y: 4, w: 22, h: 3, rot: -8 }, desktop: { x: 25, y: 3, w: 25, h: 3, rot: -5 } },
       { type: 'tape', mobile: { x: 70, y: 15, w: 15, h: 3, rot: 15 }, tablet: { x: 68, y: 12, w: 18, h: 3, rot: 12 }, desktop: { x: 65, y: 10, w: 20, h: 3, rot: 10 } },
-      { type: 'stamp', text: 'APPROVED', mobile: { x: 85, y: 85, w: 25, h: 15, rot: 5 }, tablet: { x: 82, y: 82, w: 28, h: 16, rot: 3 }, desktop: { x: 80, y: 80, w: 30, h: 18, rot: 2 } },
+      { type: 'stamp', text: 'APPROVED', mobile: { x: 82, y: 78, w: 28, h: 16, rot: 3 }, tablet: { x: 80, y: 75, w: 30, h: 18, rot: 2 }, desktop: { x: 78, y: 72, w: 32, h: 20, rot: 1 } },
       { type: 'clip', mobile: { x: 10, y: 25, w: 8, h: 12, rot: -20 }, tablet: { x: 8, y: 22, w: 10, h: 14, rot: -15 }, desktop: { x: 5, y: 20, w: 12, h: 16, rot: -10 } },
       { type: 'clip', mobile: { x: 90, y: 45, w: 8, h: 12, rot: 25 }, tablet: { x: 88, y: 42, w: 10, h: 14, rot: 20 }, desktop: { x: 85, y: 40, w: 12, h: 16, rot: 15 } },
       { type: 'note', text: '✓', mobile: { x: 40, y: 60, w: 6, h: 6, rot: 0 }, tablet: { x: 38, y: 58, w: 7, h: 7, rot: 0 }, desktop: { x: 35, y: 55, w: 8, h: 8, rot: 0 } },
-      { type: 'staple', mobile: { x: 50, y: 90, w: 10, h: 4, rot: 0 }, tablet: { x: 48, y: 88, w: 12, h: 5, rot: 0 }, desktop: { x: 45, y: 85, w: 15, h: 6, rot: 0 } }
+      { type: 'note', text: '✓', mobile: { x: 60, y: 75, w: 6, h: 6, rot: 3 }, tablet: { x: 58, y: 72, w: 7, h: 7, rot: 2 }, desktop: { x: 55, y: 70, w: 8, h: 8, rot: 1 } },
+      { type: 'tape', text: 'FILED', mobile: { x: 20, y: 85, w: 18, h: 3, rot: -5 }, tablet: { x: 18, y: 82, w: 20, h: 3, rot: -3 }, desktop: { x: 15, y: 80, w: 22, h: 3, rot: -2 } }
     ],
     pinLength: {
       mobile: '140%',
