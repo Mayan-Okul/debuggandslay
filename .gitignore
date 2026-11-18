@@ -7,6 +7,7 @@ dist/
 # Sticker pipeline
 build/
 .venv/
+scripts/__pycache__/
 
 # Source assets (large files)
 assets/raw/
