@@ -71,6 +71,7 @@ def create_die_cut(image: Image.Image) -> Image.Image:
     """
     Add white border (3% of height) and 3px ink outline.
     Border follows the shape using distance transform.
+    Canvas is padded first so borders wrap all sides.
     """
     # Ensure RGBA
     if image.mode != "RGBA":
@@ -79,20 +80,24 @@ def create_die_cut(image: Image.Image) -> Image.Image:
     arr = np.array(image)
     alpha = arr[:, :, 3]
     
-    # Distance transform from the edge of the subject
-    # Inside the subject = 0, outside = distance to subject
-    binary = (alpha > 0).astype(np.uint8)
-    dist = ndimage.distance_transform_edt(1 - binary)
-    
     h = image.height
     border_px = max(1, int(h * BORDER_PERCENT))
     outline_px = OUTLINE_WIDTH
+    pad = border_px + outline_px + 2  # Extra padding for safety
+    
+    # Pad the canvas on all sides
+    padded_arr = np.pad(arr, ((pad, pad), (pad, pad), (0, 0)), mode='constant', constant_values=0)
+    padded_alpha = padded_arr[:, :, 3]
+    
+    # Distance transform from the edge of the subject
+    binary = (padded_alpha > 0).astype(np.uint8)
+    dist = ndimage.distance_transform_edt(1 - binary)
     
     # Create new alpha: subject + border + outline
-    new_alpha = np.zeros_like(alpha, dtype=np.uint8)
+    new_alpha = np.zeros_like(padded_alpha, dtype=np.uint8)
     
     # Subject (original alpha)
-    new_alpha = np.maximum(new_alpha, alpha)
+    new_alpha = np.maximum(new_alpha, padded_alpha)
     
     # White border: distance <= border_px
     border_mask = (dist <= border_px) & (dist > 0)
@@ -103,11 +108,11 @@ def create_die_cut(image: Image.Image) -> Image.Image:
     new_alpha[outline_mask] = 255
     
     # Build output image
-    out = np.zeros((h, image.width, 4), dtype=np.uint8)
+    out = np.zeros_like(padded_arr, dtype=np.uint8)
     
     # Fill subject with original colors
-    subject_mask = alpha > 0
-    out[subject_mask] = arr[subject_mask]
+    subject_mask = padded_alpha > 0
+    out[subject_mask] = padded_arr[subject_mask]
     
     # Fill border with white
     out[border_mask] = [255, 255, 255, 255]
