@@ -1,104 +1,15 @@
-/* Design tokens for Debugg and Slay Week */
-
 :root {
-  /* Base */
-  --color-bg: #fff;
-  --color-ink: #111;
-  --color-paper: #fff;
-  --color-tape: rgba(255, 255, 255, 0.7);
-  --color-shadow: rgba(0, 0, 0, 0.15);
-
-  /* Typography */
-  --font-body: 'Manrope', system-ui, sans-serif;
-  --font-scribble: 'Caveat', cursive;
-
-  /* Display fonts (fallbacks - will be overridden if local files exist) */
-  --font-block-bomb: 'Bowlby One', cursive;
-  --font-thorm-floxy: 'Rubik Distressed', cursive;
-  --font-hype: 'Rubik Bubbles', cursive;
-  --font-forever-young: 'Shrikhand', cursive;
-  --font-brown-wager: 'Caprasimo', cursive;
-  --font-tribal-broots: 'Pirata One', cursive;
-
-  /* Spacing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
-  --gutter: 16px;
-
-  /* Sizing */
-  --sticker-max-w-mobile: 38vw;
-  --sticker-centerpiece-scale: 1.6;
-  --sticker-other-scale: 1.25;
-  --cluster-height-desktop: 85vh;
-  --pin-length-desktop: 220%;
-  --pin-length-mobile: 140%;
-
-  /* Z-index layers */
-  --z-nav: 1000;
-  --z-sticker-base: 10;
-  --z-sticker-top: 50;
-  --z-decor: 5;
-  --z-toast: 2000;
-
-  /* Transitions */
-  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --duration-fast: 0.3s;
-  --duration-normal: 0.5s;
-  --duration-slow: 0.8s;
-
-  /* Day palettes (set per slide via data attributes) */
-  --palette-1: #EE6A14; /* orange */
-  --palette-2: #19B3A0; /* teal */
-  --palette-3: #F6B81C; /* sun */
-  --palette-4: #D8322B; /* red */
-  --palette-5: #111;    /* ink */
-
-  --palette-mon-1: #0E1A36; /* navy */
-  --palette-mon-2: #D9AA4C; /* gold */
-  --palette-mon-3: #C0392B; /* brick red */
-  --palette-mon-4: #F9F871; /* sticky yellow */
-  --palette-mon-5: #fff;    /* paper */
-
-  --palette-tue-1: #FF2E93; /* hot pink */
-  --palette-tue-2: #C0C0C0; /* chrome silver */
-  --palette-tue-3: #3B5B8C; /* denim blue */
-  --palette-tue-4: #C6FF3D; /* lime */
-  --palette-tue-5: #111;    /* black */
-
-  --palette-wed-1: #1F9D55; /* grass green */
-  --palette-wed-2: #2D5BFF; /* electric blue */
-  --palette-wed-3: #fff;    /* white */
-  --palette-wed-4: #E63946; /* red */
-  --palette-wed-5: #F2C230; /* yellow */
-
-  --palette-thu-1: #F2C230; /* bus yellow */
-  --palette-thu-2: #7A2E2E; /* school maroon */
-  --palette-thu-3: #C0392B; /* plaid red */
-  --palette-thu-4: #3B5B8C; /* notebook blue */
-  --palette-thu-5: #4CA64C; /* chalk green */
-
-  --palette-fri-1: #2A1A10; /* deep brown */
-  --palette-fri-2: #C9965B; /* sand */
-  --palette-fri-3: #D2691E; /* ochre */
-  --palette-fri-4: #EE6A14; /* flyer orange */
-  --palette-fri-5: #19B3A0; /* flyer teal */
-}
-
-/* Paper grain noise */
-@media (prefers-reduced-motion: no-preference) {
-  :root::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.02;
-    pointer-events: none;
-    z-index: 1;
-  }
+  --cream: #f7f1e3;
+  --paper: #fffaf0;
+  --ink: #1a1612;
+  --orange: #ee6a14;
+  --teal: #19b3a0;
+  --sun: #f6b81c;
+  --red: #d8322b;
+  --f-block: "Bowlby One", "Impact", sans-serif;
+  --f-thorm: "Rubik Distressed", "Impact", sans-serif;
+  --f-hand: "Caveat", "Segoe Script", cursive;
+  --f-body: "Manrope", system-ui, sans-serif;
+  --nav-h: 64px;
+  color-scheme: light;
 }
