@@ -32,12 +32,77 @@
 .slide {
   position: relative;
   min-height: 100svh;
-  padding: calc(var(--space-3xl) + 60px) var(--gutter) var(--space-3xl);
+  padding: calc(var(--space-3xl) + 80px) var(--gutter) var(--space-3xl);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-x: hidden; /* Prevent horizontal scroll */
   overflow-y: visible; /* Allow stickers to bleed vertically */
+}
+
+/* Intro slide specific layout */
+.slide--intro .slide__board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  min-height: calc(100svh - 80px);
+}
+
+.slide--intro .headline {
+  position: relative;
+  margin-top: var(--space-xl);
+  text-align: center;
+  z-index: 20;
+}
+
+.slide--intro .headline__word {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+}
+
+.slide--intro .motto-strip {
+  margin-top: var(--space-lg);
+  text-align: center;
+  z-index: 20;
+}
+
+.slide--intro .details-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  z-index: 15;
+  flex-wrap: wrap;
+}
+
+.slide--intro .detail-label,
+.slide--intro .perk-tag,
+.slide--intro .stamp {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+.slide--intro .detail-label:nth-child(odd),
+.slide--intro .perk-tag:nth-child(odd) {
+  transform: translateY(20px) rotate(-2deg);
+}
+
+.slide--intro .detail-label:nth-child(even),
+.slide--intro .perk-tag:nth-child(even) {
+  transform: translateY(20px) rotate(2deg);
+}
+
+.slide--intro .hint-strip {
+  margin-top: var(--space-xl);
+  text-align: center;
+  z-index: 15;
 }
 
 .slide__board {
@@ -66,6 +131,12 @@
   cursor: zoom-in;
   will-change: transform, opacity;
   transition: filter 0.3s var(--ease-out);
+  /* Size from board width using --s (percentage of board width) */
+  width: clamp(var(--sticker-min-w, 20%), var(--s, 22%) * var(--board-w, 100%), var(--sticker-max-w, 26%));
+  height: auto;
+  max-height: var(--sticker-max-h, 42svh);
+  aspect-ratio: var(--sticker-ar, 1);
+  object-fit: contain;
 }
 
 .sticker:hover {
@@ -84,6 +155,24 @@
 .sticker.is-zoomed {
   cursor: zoom-out;
   z-index: calc(var(--z-toast) + 1) !important;
+}
+
+/* Centerpiece sticker */
+.sticker--centerpiece {
+  --s: 34%;
+  --sticker-min-w: 30%;
+  --sticker-max-w: 38%;
+  --sticker-max-h: 50svh;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .sticker {
+    --sticker-max-h: 30svh;
+  }
+  .sticker--centerpiece {
+    --sticker-max-h: 38svh;
+  }
 }
 
 /* Decorative elements */
@@ -207,14 +296,15 @@
   color: #fff;
 }
 
-/* African print strips for intro */
+/* African print strips for intro - thin bands */
 .afro-strip {
   position: absolute;
   left: 0;
   right: 0;
-  height: 60px;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0V0zm30 30h30v30H30V30z' fill='%23EE6A14' fill-opacity='0.3'/%3E%3Cpath d='M15 15h30v30H15V15zm15 15h15v15H30V30z' fill='%2319B3A0' fill-opacity='0.3'/%3E%3C/svg%3E");
-  opacity: 0.6;
+  height: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0V0zm30 30h30v30H30V30z' fill='%23EE6A14' fill-opacity='0.4'/%3E%3Cpath d='M15 15h30v30H15V15zm15 15h15v15H30V30z' fill='%2319B3A0' fill-opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  opacity: 0.7;
 }
 
 .afro-strip--top {
@@ -223,6 +313,18 @@
 
 .afro-strip--bottom {
   bottom: 0;
+}
+
+/* Logo sticker - capped size */
+.logo-sticker {
+  width: clamp(120px, 18vw, 220px) !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  --s: auto !important;
+  --sticker-max-w: none !important;
+  --sticker-min-w: none !important;
+  --sticker-max-h: none !important;
 }
 
 /* Cursor blink for motto */

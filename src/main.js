@@ -50,8 +50,20 @@ function buildSlides() {
   slidesContainer.innerHTML = days.map((day, i) => buildSlide(day, i)).join('') +
     buildClosing();
 
-  // Attach sticker click handlers
-  document.querySelectorAll('.sticker').forEach((sticker, idx) => {
+  // Set aspect ratios for stickers after they load
+  document.querySelectorAll('.sticker').forEach(sticker => {
+    const setAspectRatio = () => {
+      if (sticker.naturalWidth && sticker.naturalHeight) {
+        const ar = sticker.naturalWidth / sticker.naturalHeight;
+        sticker.style.setProperty('--sticker-ar', ar.toFixed(3));
+      }
+    };
+    if (sticker.complete) {
+      setAspectRatio();
+    } else {
+      sticker.addEventListener('load', setAspectRatio, { once: true });
+    }
+    
     sticker.addEventListener('click', () => openZoom(sticker));
     sticker.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -84,10 +96,14 @@ function buildSlide(day, index) {
     const theme = themeFolders[day.id] || '';
     const src = theme ? `/stickers/${theme}/s${stickerNum.toString().padStart(2, '0')}.webp` : '';
     const alt = `Outfit inspiration, sticker ${stickerNum} of 9`;
+    const isCenterpiece = i === 4; // 5th sticker (index 4) is centerpiece
+    const centerpieceClass = isCenterpiece ? ' sticker--centerpiece' : '';
+    // Aspect ratio will be set via inline style from the image's natural dimensions
+    // We'll set it after the image loads, but for now use a default
 
     return `
       <img
-        class="sticker"
+        class="sticker${centerpieceClass}"
         src="${src}"
         alt="${alt}"
         loading="${index === 0 ? 'eager' : 'lazy'}"
@@ -99,6 +115,7 @@ function buildSlide(day, index) {
           --scale: ${p.scale};
           --rot: ${p.rot}deg;
           --z: ${p.z};
+          --s: ${isCenterpiece ? '34%' : '22%'};
           left: var(--x);
           top: var(--y);
           transform: translate(-50%, -50%) scale(var(--scale)) rotate(var(--rot));
@@ -136,22 +153,54 @@ function buildSlide(day, index) {
 
   const subHeadlineHtml = day.subHeadline ? `<div class="headline__strip paper-strip">${day.subHeadline}</div>` : '';
 
+  // Intro slide special structure
+  let contentHtml = '';
+  if (day.id === 'intro') {
+    const mottoHtml = day.motto ? `<div class="motto-strip paper-strip cursor-blink" style="opacity: 0;">${day.motto}</div>` : '';
+    const purposeHtml = day.purpose ? `<div class="detail-label paper-strip" style="opacity: 0;">${day.purpose}</div>` : '';
+    const detailsGroupHtml = `
+      <div class="details-group">
+        ${detailsHtml}
+        ${purposeHtml}
+        ${perksHtml}
+        ${stampHtml}
+      </div>
+    `;
+    const hintStripHtml = day.hint ? `<div class="hint-strip paper-strip" style="opacity: 0;">${day.hint}</div>` : '';
+    const afroStripsHtml = `
+      <div class="afro-strip afro-strip--top" aria-hidden="true"></div>
+      <div class="afro-strip afro-strip--bottom" aria-hidden="true"></div>
+    `;
+    contentHtml = `
+      ${afroStripsHtml}
+      ${headlineHtml}
+      ${mottoHtml}
+      ${detailsGroupHtml}
+      ${hintStripHtml}
+      ${logoHtml}
+    `;
+  } else {
+    contentHtml = `
+      ${decorHtml}
+      ${headlineHtml}
+      ${detailsHtml}
+      ${perksHtml}
+      ${tagHtml}
+      ${tagsHtml}
+      ${stampHtml}
+      ${hintHtml}
+      ${logoHtml}
+      ${subHeadlineHtml}
+    `;
+  }
+
   return `
     <section class="slide ${day.className}" id="slide-${index}" data-slide="${index}" style="--font-display: ${day.fontDisplay};">
       <div class="slide__board">
         <div class="slide__cluster">
           ${stickersHtml}
         </div>
-        ${decorHtml}
-        ${headlineHtml}
-        ${detailsHtml}
-        ${perksHtml}
-        ${tagHtml}
-        ${tagsHtml}
-        ${stampHtml}
-        ${hintHtml}
-        ${logoHtml}
-        ${subHeadlineHtml}
+        ${contentHtml}
       </div>
     </section>
   `;
