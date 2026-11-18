@@ -1,34 +1,127 @@
 window.DAYS = [
   {
-    id: "mon", tab: "MON", ready: true, side: "right", font: "f-thorm", tilt: -2, dir: "img/mon", count: 9,
+    id: "mon",
+    tab: "MON",
+    ready: true,
+    side: "right",
+    font: "f-thorm",
+    tilt: -2,
+    dir: "stickers/careerwear",
+    count: 9,
     kicker: "💼 Monday — Career Wear",
-    title: "The Professional Era",
+    title: "THE PROFESSIONAL ERA",
     text: "Clock in and dress for the dream role. Corporate baddie, future CEO, or doctor on duty—what's your career alter ego?",
-    rows: { wide: [["s01", "s02", "s05", "s08", "s03"], ["s09", "s07", "s06", "s04"]], tall: [["s01", "s02", "s08"], ["s04", "s05", "s03"], ["s09", "s07", "s06"]] },
+    rows: {
+      wide: [
+        ["s01", "s02", "s05", "s08", "s03"],
+        ["s09", "s07", "s06", "s04"]
+      ],
+      tall: [
+        ["s01", "s02", "s08"],
+        ["s04", "s05", "s03"],
+        ["s09", "s07", "s06"]
+      ]
+    },
     center: "s05"
   },
   {
-    id: "tue", tab: "TUE", ready: false, side: "left", font: "f-hype", tilt: 2,
+    id: "tue",
+    tab: "TUE",
+    ready: true,
+    side: "left",
+    font: "f-thorm",
+    tilt: 2,
+    dir: "stickers/streetwear-y2k",
+    count: 9,
     kicker: "🛹 Tuesday — Streetwear / Y2K",
-    title: "The Street Style Takeover",
-    text: "Baggy fits, bold vibes, and unapologetic drip. Throw it back to Y2K or pull up as your favourite meme."
+    title: "THE STREET STYLE TAKEOVER",
+    text: "Baggy fits, bold vibes, and unapologetic drip. Throw it back to Y2K or pull up as your favourite meme.",
+    rows: {
+      wide: [
+        ["s01", "s02", "s05", "s08", "s03"],
+        ["s09", "s07", "s06", "s04"]
+      ],
+      tall: [
+        ["s01", "s02", "s08"],
+        ["s04", "s05", "s03"],
+        ["s09", "s07", "s06"]
+      ]
+    },
+    center: "s05"
   },
   {
-    id: "wed", tab: "WED", ready: false, side: "right", font: "f-forever", tilt: -1.5,
+    id: "wed",
+    tab: "WED",
+    ready: true,
+    side: "right",
+    font: "f-thorm",
+    tilt: -1.5,
+    dir: "stickers/sportwear-jersey",
+    count: 9,
     kicker: "⚽ Wednesday — Sportswear (Jersey Edition)",
-    title: "Rep Your Team",
-    text: "Game face on, jersey out! Football, basketball, rugby—rep whatever team has your heart."
+    title: "REP YOUR TEAM",
+    text: "Game face on, jersey out! Football, basketball, rugby—rep whatever team has your heart.",
+    rows: {
+      wide: [
+        ["s01", "s02", "s05", "s08", "s03"],
+        ["s09", "s07", "s06", "s04"]
+      ],
+      tall: [
+        ["s01", "s02", "s08"],
+        ["s04", "s05", "s03"],
+        ["s09", "s07", "s06"]
+      ]
+    },
+    center: "s05"
   },
   {
-    id: "thu", tab: "THU", ready: false, side: "left", font: "f-brown", tilt: 2.5,
+    id: "thu",
+    tab: "THU",
+    ready: true,
+    side: "left",
+    font: "f-thorm",
+    tilt: 2.5,
+    dir: "stickers/schoolwear",
+    count: 9,
     kicker: "🎒 Thursday — Schoolwear",
-    title: "Back to the Classroom",
-    text: "Homework, break time, and school bells! Dust off the nostalgia and revisit your primary or high school uniform days."
+    title: "BACK TO THE CLASSROOM",
+    text: "Homework, break time, and school bells! Dust off the nostalgia and revisit your primary or high school uniform days.",
+    rows: {
+      wide: [
+        ["s01", "s02", "s05", "s08", "s03"],
+        ["s09", "s07", "s06", "s04"]
+      ],
+      tall: [
+        ["s01", "s02", "s08"],
+        ["s04", "s05", "s03"],
+        ["s09", "s07", "s06"]
+      ]
+    },
+    center: "s05"
   },
   {
-    id: "fri", tab: "FRI", ready: false, side: "right", font: "f-tribal", tilt: -2,
+    id: "fri",
+    tab: "FRI",
+    ready: true,
+    side: "right",
+    font: "f-thorm",
+    tilt: -2,
+    dir: "stickers/culturalwear",
+    count: 9,
     kicker: "👑 Friday — Grand Finale",
-    title: "The Ultimate Slay Finale",
-    text: "Close out the week with culture, colour, and talent. Represent your roots and let's make some memories!"
+    title: "THE ULTIMATE SLAY FINALE",
+    text: "Close out the week with culture, colour, and talent. Represent your roots and let's make some memories!",
+    rows: {
+      wide: [
+        ["s01", "s02", "s05", "s08", "s03"],
+        ["s09", "s07", "s06", "s04"]
+      ],
+      tall: [
+        ["s01", "s02", "s08"],
+        ["s04", "s05", "s03"],
+        ["s09", "s07", "s06"]
+      ]
+    },
+    center: "s05"
   }
 ];
