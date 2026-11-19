@@ -84,7 +84,7 @@ DAYS.filter((d) => d.ready).forEach((d) => {
 
   sec.innerHTML =
     `<div class="stage">` +
-    `<div class="note" style="--tilt:${d.tilt}deg"><img src="/note.png" alt="" width="818" height="607"><div class="note-text">` +
+    `<div class="note" style="--tilt:${d.tilt}deg"><img src="/note.png" alt="" width="503" height="334"><div class="note-text">` +
     `<p class="day-kicker">${d.kicker}</p><h2 class="title ${d.font}">${d.title}</h2><p class="day-desc">${d.text}</p></div></div>` +
     `<div class="board">${imgs}</div></div>`;
   main.appendChild(sec);
@@ -150,11 +150,13 @@ function layout(sec, d, mode) {
       const yJitter = n === d.center ? 0 : rnd() * 3.6 - 1.8;
       const top = Math.max(0, Math.min(100 - h, rowTop + (H - h) / 2 + yJitter));
       const rot = n === d.center ? rnd() * 3 - 1.5 : rnd() * 9 - 4.5;
+      const baseZ = ri * 10 + (n === d.center ? 6 : i % 5);
 
       el.style.left = left.toFixed(2) + "%";
       el.style.top = top.toFixed(2) + "%";
       el.style.height = h.toFixed(2) + "%";
-      el.style.zIndex = String(ri * 10 + (n === d.center ? 6 : i % 5));
+      el.style.zIndex = String(baseZ);
+      el.dataset.baseZ = String(baseZ);
       el.dataset.rot = rot.toFixed(2);
       el.style.transform = `rotate(${rot.toFixed(2)}deg)`;
       boxes.push({ n, el, l: left, t: top, w, h });
@@ -164,10 +166,9 @@ function layout(sec, d, mode) {
   return boxes;
 }
 
-/* Interactive drag, hover lift, shine & z-index focus */
+/* Interactive pop-above, desktop drag, shine & snap-back */
 function wireInteractions(sec) {
   const board = $(".board", sec);
-  let topZ = 50;
   let active = null;
 
   board.querySelectorAll(".stk").forEach((el, idx) => {
@@ -175,31 +176,47 @@ function wireInteractions(sec) {
     const shine = $(".shine", el);
     const pos = { x: 0, y: 0 };
 
-    el.addEventListener("pointerenter", () => {
-      if (active) return;
+    const restoreLayer = () => {
+      if (!active || active.el !== el) {
+        el.style.zIndex = el.dataset.baseZ || "";
+      }
+    };
+
+    el.addEventListener("pointerenter", (e) => {
+      if (e.pointerType !== "mouse" || active) return;
+      el.style.zIndex = "999";
       gsap.to(wrap, { scale: 1.07, rotation: idx % 2 === 0 ? -3.2 : 3.2, duration: 0.2, ease: "back.out(2.2)", overwrite: "auto" });
       gsap.to(el, { "--sh": 14, duration: 0.2, ease: "power2.out" });
       gsap.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.55, ease: "power1.inOut", overwrite: "auto" });
     });
 
-    el.addEventListener("pointerleave", () => {
+    el.addEventListener("pointerleave", (e) => {
+      if (e.pointerType !== "mouse") return;
       if (active && active.el === el) return;
-      gsap.to(wrap, { scale: 1, rotation: 0, duration: 0.24, ease: "power2.out", overwrite: "auto" });
+      gsap.to(wrap, { scale: 1, rotation: 0, duration: 0.24, ease: "power2.out", overwrite: "auto", onComplete: restoreLayer });
       gsap.to(el, { "--sh": 5, duration: 0.24, ease: "power2.out" });
     });
 
     el.addEventListener("pointerdown", (e) => {
-      if (e.button !== 0 && e.pointerType === "mouse") return;
-      el.setPointerCapture(e.pointerId);
-      el.style.zIndex = String(++topZ);
-      el.classList.add("is-dragging");
-      active = { el, id: e.pointerId, sx: e.clientX, sy: e.clientY, ox: pos.x, oy: pos.y, lx: e.clientX };
-      gsap.to(wrap, { scale: 1.1, duration: 0.16, ease: "back.out(2)", overwrite: "auto" });
-      gsap.to(el, { "--sh": 22, duration: 0.16, ease: "power2.out" });
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      const isTouch = e.pointerType !== "mouse";
+
+      if (!isTouch) {
+        el.setPointerCapture(e.pointerId);
+        el.classList.add("is-dragging");
+      }
+
+      el.style.zIndex = "999";
+      active = { el, id: e.pointerId, isTouch, sx: e.clientX, sy: e.clientY, ox: pos.x, oy: pos.y, lx: e.clientX };
+      gsap.to(wrap, { scale: isTouch ? 1.18 : 1.12, duration: 0.18, ease: "back.out(2.2)", overwrite: "auto" });
+      gsap.to(el, { "--sh": 24, duration: 0.16, ease: "power2.out" });
+      gsap.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.55, ease: "power1.inOut", overwrite: "auto" });
     });
 
     el.addEventListener("pointermove", (e) => {
       if (!active || active.el !== el || active.id !== e.pointerId) return;
+      if (active.isTouch) return;
+
       const mx = board.offsetWidth * 0.45;
       const my = board.offsetHeight * 0.45;
       pos.x = Math.max(-mx, Math.min(mx, active.ox + (e.clientX - active.sx)));
@@ -215,7 +232,19 @@ function wireInteractions(sec) {
       if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
       el.classList.remove("is-dragging");
       active = null;
-      gsap.to(wrap, { scale: 1, rotation: 0, duration: 0.35, ease: "elastic.out(1, 0.55)", overwrite: "auto" });
+      pos.x = 0;
+      pos.y = 0;
+
+      gsap.to(wrap, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotation: 0,
+        duration: 0.38,
+        ease: "elastic.out(1, 0.55)",
+        overwrite: "auto",
+        onComplete: restoreLayer
+      });
       gsap.to(el, { "--sh": 5, duration: 0.25, ease: "power2.out" });
     };
 
