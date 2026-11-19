@@ -14,8 +14,8 @@
 - Do NOT name any career or profession anywhere: not in copy, labels, alt text, filenames or code. No names of real people either. Alt text is generic, like "Outfit inspiration, sticker 3 of 9".
 - No brands, characters or logos that aren't mine. Decorations are drawn by you in CSS or SVG.
 - Event facts (use exactly):
-  - From 30th November 2026, Monday to Friday
-  - Grand Finale Friday 4th December 2026
+  - From 14th December 2026, Monday to Friday
+  - Grand Finale Friday 18th December 2026
   - Venue: LakeHub, Zone01 Kisumu
   - Participation is mandatory all week
   - Dress to impress for a chance at best-dressed awards, catch the talent show, free snacks on the final day
@@ -74,30 +74,30 @@ Fixed nav: five small paper tabs (Mon, Tue, Wed, Thu, Fri) at the top that scrol
 - Palette from the flyer: orange #EE6A14, teal #19B3A0, sun #F6B81C, red #D8322B, ink #111.
 - Taped African-print paper strips (CSS or SVG geometric patterns in those colors) along the top and bottom.
 - Headline "Debugg and Slay Week" in paper chips. The motto on a torn paper strip with a blinking cursor, like a code prompt.
-- Detail labels: "From 30th November 2026", "Grand Finale: Friday 4th December", "LakeHub, Zone01 Kisumu". Purpose paragraph on cut paper. A "MANDATORY" rubber stamp. Perk tags: Best-dressed awards, Talent show, Free snacks on the final day. The logo as a sticker. Hint: "Scroll for the daily dress codes".
+- Detail labels: "From 14th December 2026", "Grand Finale: Friday 18th December", "LakeHub, Zone01 Kisumu". Purpose paragraph on cut paper. A "MANDATORY" rubber stamp. Perk tags: Best-dressed awards, Talent show, Free snacks on the final day. The logo as a sticker. Hint: "Scroll for the daily dress codes".
 - No photo stickers here. Motion: chips drop in, labels slap on, stamp lands with a thud.
 
-**Slide 2: Monday 30 Nov, Career Wear** (Thorm Floxy)
+**Slide 2: Monday 14 Dec, Career Wear** (Thorm Floxy)
 - Palette: navy #0E1A36, gold #D9AA4C, brick red, sticky-note yellow, paper white. Props: paper clips, binder clips, sticky notes, a stamp reading "APPROVED", checklist ticks, a staple.
 - Tagline: "Deploy your future self." Tag: "Any profession of your choice". No profession names.
 - Motion: crisp and orderly, stickers snap in like documents being stamped.
 
-**Slide 3: Tuesday 1 Dec, Streetwear / Y2K** (Hype)
+**Slide 3: Tuesday 15 Dec, Streetwear / Y2K** (Hype)
 - Palette: hot pink #FF2E93, chrome silver, denim blue #3B5B8C, lime #C6FF3D, black. Props: stars, camera flash burst, vinyl record, sticker words "SWAG" and "DIVA", "I am the designer of my own style.", a parental-advisory style tag.
 - Tagline: "Push to prod, in style." Tags: "Streetwear", "Y2K", "Meme of your choice".
 - Motion: fast, bouncy slam-ins with a quick flash on each landing.
 
-**Slide 4: Wednesday 2 Dec, Sportswear (Jersey Edition)** (Forever Young)
+**Slide 4: Wednesday 16 Dec, Sportswear (Jersey Edition)** (Forever Young)
 - Palette: grass green #1F9D55, electric blue #2D5BFF, white, red #E63946, yellow. Props: big jersey numbers, stripes, pennant triangles, stadium light rays, a ticket stub, speed lines.
 - Tagline: "Pick your team." Tag: "Jersey of your choice".
 - Motion: stickers shoot in with speed lines like a kicked ball and bounce once.
 
-**Slide 5: Thursday 3 Dec, Schoolwear** (Brown Wager)
+**Slide 5: Thursday 17 Dec, Schoolwear** (Brown Wager)
 - Palette: bus yellow #F2C230, school maroon #7A2E2E, plaid red, notebook blue, chalk green. Props: ruled paper strips, plaid washi tape, gold star stickers, red-pen ticks, an "A+" mark, a pencil, name labels.
 - Tagline: "Back to Hello World." Tags: "Primary", "Secondary".
 - Motion: stickers get pinned on like a notice board and swing like a pendulum for a moment when they land.
 
-**Slide 6: Friday 4 Dec, Grand Finale** (Tribal Broots)
+**Slide 6: Friday 18 Dec, Grand Finale** (Tribal Broots)
 - Palette: deep brown #2A1A10, sand #C9965B, ochre, plus the flyer colors. Letters are white on dark brown chips (like the font reference). Props: African-print patch strips, a drum, a spotlight beam, confetti, snack stickers.
 - Heading "Grand Finale", sub "Cultural Wear + Talent Show". Tagline: "Merge culture with code." Tags: "Cultural wear", "Talent show", "Snacks provided!".
 - Motion: the biggest. Stickers land on a drum rhythm (even stagger about 0.12s) with a tiny screen shake and a confetti burst at the end.
