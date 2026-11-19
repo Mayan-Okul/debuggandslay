@@ -116,7 +116,7 @@
 .note {
   position: relative;
   width: min(100%, var(--note-w, 600px));
-  aspect-ratio: 818 / 607;
+  aspect-ratio: 503 / 334;
   container-type: inline-size;
   transform: rotate(var(--tilt, 0deg));
   flex: none;
@@ -132,16 +132,16 @@
 
 .note-text {
   position: absolute;
-  left: 25%;
-  top: 17.4%;
-  width: 61%;
+  left: 23%;
+  top: 23.8%;
+  width: 58%;
   transform-origin: 0 0;
-  transform: rotate(-2.6deg);
+  transform: rotate(-2.55deg);
   color: #2a2118;
   mix-blend-mode: multiply;
   font-family: var(--f-hand);
-  font-size: 4.5cqw;
-  line-height: 5.45cqw;
+  font-size: 4.1cqw;
+  line-height: 4.42cqw;
 }
 
 .note-text p { margin: 0; }
@@ -150,14 +150,14 @@
 .note-text .day-kicker {
   font-family: var(--f-hand);
   font-weight: 700;
-  font-size: 4.35cqw;
-  line-height: 5.45cqw;
+  font-size: 4.1cqw;
+  line-height: 4.42cqw;
   letter-spacing: 0.01em;
 }
 
 .note-text .title {
-  font-size: 5.1cqw;
-  line-height: 5.45cqw;
+  font-size: 3.9cqw;
+  line-height: 4.42cqw;
   text-transform: uppercase;
   margin: 0;
   font-weight: 400;
@@ -168,9 +168,9 @@
 .note-text .day-desc {
   font-family: var(--f-body);
   font-weight: 600;
-  font-size: 3.15cqw;
-  line-height: 5.45cqw;
-  margin-top: 0.35cqw;
+  font-size: 3cqw;
+  line-height: 4.42cqw;
+  margin: 0;
 }
 
 .f-thorm { font-family: var(--f-thorm); }
@@ -250,6 +250,13 @@
   background-position: calc(var(--sx) * 1%) 0;
 }
 
+@media (max-width: 899px), (pointer: coarse) {
+  .stk {
+    cursor: pointer;
+    touch-action: pan-y;
+  }
+}
+
 @media (min-width: 900px) {
   .intro-body {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -277,4 +284,52 @@
     width: min(60%, calc((100svh - var(--nav-h) - 60px) * 1.4));
     aspect-ratio: 1.4;
   }
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border-top: 2px dashed rgba(26, 22, 18, 0.16);
+  padding: clamp(32px, 5vw, 52px) max(16px, env(safe-area-inset-right, 0px))
+    clamp(36px, 5vw, 56px) max(16px, env(safe-area-inset-left, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.footer-title {
+  margin: 0;
+  font-family: var(--f-thorm);
+  font-weight: 400;
+  font-size: clamp(1.55rem, 3.8vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.footer-date {
+  margin: 4px 0 0;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--ink);
+}
+
+.footer-signoff {
+  margin: 0;
+  font-family: var(--f-hand);
+  font-weight: 700;
+  font-size: clamp(1.45rem, 3.2vw, 2rem);
+  line-height: 1.2;
+  color: var(--orange);
+}
+
+.footer-logo {
+  margin-top: 10px;
+  width: clamp(140px, 16vw, 200px);
+  height: auto;
+  display: block;
 }
