@@ -205,18 +205,23 @@
   width: min(100%, 560px);
   aspect-ratio: 0.8;
   container-type: size;
+  contain: layout style;
   flex: none;
 }
 
 .stk {
   position: absolute;
   display: block;
-  --sh: 6;
-  will-change: transform;
+  --sh: 5;
   cursor: grab;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.stk.is-active,
+.stk.is-dragging {
+  will-change: transform;
 }
 
 .stk.is-dragging { cursor: grabbing; }
@@ -225,6 +230,10 @@
   position: relative;
   height: 100%;
   width: auto;
+}
+
+.stk.is-active .stk-drag,
+.stk.is-dragging .stk-drag {
   will-change: transform;
 }
 
@@ -233,7 +242,7 @@
   height: 100%;
   width: auto;
   pointer-events: none;
-  filter: drop-shadow(0 calc(var(--sh) * 1px) calc(var(--sh) * 1.2px) rgba(26, 22, 18, 0.38));
+  filter: drop-shadow(0 calc(var(--sh) * 1px) calc(var(--sh) * 1.1px) rgba(26, 22, 18, 0.34));
 }
 
 .stk .shine {
@@ -251,9 +260,21 @@
 }
 
 @media (max-width: 899px), (pointer: coarse) {
+  body::before {
+    display: none;
+  }
+
   .stk {
     cursor: pointer;
     touch-action: pan-y;
+  }
+
+  .stk img {
+    filter: drop-shadow(0 3px 4px rgba(26, 22, 18, 0.28));
+  }
+
+  .stk.is-active img {
+    filter: drop-shadow(0 12px 16px rgba(26, 22, 18, 0.38));
   }
 }
 
