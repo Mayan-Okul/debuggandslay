@@ -78,13 +78,13 @@ DAYS.filter((d) => d.ready).forEach((d) => {
   const imgs = ids
     .map((n, idx) => {
       const url = `${d.dir}/${n}.webp`;
-      return `<div class="stk" data-n="${n}" style="--img:url(&quot;${url}&quot;)"><div class="stk-drag"><img src="${url}" alt="${d.tab} outfit inspiration sticker ${idx + 1} of ${ids.length}" draggable="false"><i class="shine"></i></div></div>`;
+      return `<div class="stk" data-n="${n}" style="--img:url(&quot;${url}&quot;)"><div class="stk-drag"><img src="${url}" alt="${d.tab} outfit inspiration sticker ${idx + 1} of ${ids.length}" draggable="false" decoding="async"><i class="shine"></i></div></div>`;
     })
     .join("");
 
   sec.innerHTML =
     `<div class="stage">` +
-    `<div class="note" style="--tilt:${d.tilt}deg"><img src="/note.png" alt="" width="503" height="334"><div class="note-text">` +
+    `<div class="note" style="--tilt:${d.tilt}deg"><img src="/note.png" alt="" width="503" height="334" decoding="async"><div class="note-text">` +
     `<p class="day-kicker">${d.kicker}</p><h2 class="title ${d.font}">${d.title}</h2><p class="day-desc">${d.text}</p></div></div>` +
     `<div class="board">${imgs}</div></div>`;
   main.appendChild(sec);
@@ -104,7 +104,7 @@ if ("IntersectionObserver" in window) {
         if (e.isIntersecting) setActive(e.target.id);
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.45 }
   );
   document.querySelectorAll("main > section").forEach((s) => io.observe(s));
 }
@@ -155,7 +155,9 @@ function layout(sec, d, mode) {
       el.style.left = left.toFixed(2) + "%";
       el.style.top = top.toFixed(2) + "%";
       el.style.height = h.toFixed(2) + "%";
-      el.style.zIndex = String(baseZ);
+      if (!el.classList.contains("is-active")) {
+        el.style.zIndex = String(baseZ);
+      }
       el.dataset.baseZ = String(baseZ);
       el.dataset.rot = rot.toFixed(2);
       el.style.transform = `rotate(${rot.toFixed(2)}deg)`;
@@ -178,14 +180,16 @@ function wireInteractions(sec) {
 
     const restoreLayer = () => {
       if (!active || active.el !== el) {
+        el.classList.remove("is-active");
         el.style.zIndex = el.dataset.baseZ || "";
       }
     };
 
     el.addEventListener("pointerenter", (e) => {
       if (e.pointerType !== "mouse" || active) return;
+      el.classList.add("is-active");
       el.style.zIndex = "999";
-      gsap.to(wrap, { scale: 1.07, rotation: idx % 2 === 0 ? -3.2 : 3.2, duration: 0.2, ease: "back.out(2.2)", overwrite: "auto" });
+      gsap.to(wrap, { scale: 1.07, rotation: idx % 2 === 0 ? -3.2 : 3.2, duration: 0.2, ease: "back.out(2.2)", overwrite: "auto", force3D: true });
       gsap.to(el, { "--sh": 14, duration: 0.2, ease: "power2.out" });
       gsap.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.55, ease: "power1.inOut", overwrite: "auto" });
     });
@@ -193,7 +197,7 @@ function wireInteractions(sec) {
     el.addEventListener("pointerleave", (e) => {
       if (e.pointerType !== "mouse") return;
       if (active && active.el === el) return;
-      gsap.to(wrap, { scale: 1, rotation: 0, duration: 0.24, ease: "power2.out", overwrite: "auto", onComplete: restoreLayer });
+      gsap.to(wrap, { scale: 1, rotation: 0, duration: 0.24, ease: "power2.out", overwrite: "auto", force3D: true, onComplete: restoreLayer });
       gsap.to(el, { "--sh": 5, duration: 0.24, ease: "power2.out" });
     });
 
@@ -206,11 +210,12 @@ function wireInteractions(sec) {
         el.classList.add("is-dragging");
       }
 
+      el.classList.add("is-active");
       el.style.zIndex = "999";
       active = { el, id: e.pointerId, isTouch, sx: e.clientX, sy: e.clientY, ox: pos.x, oy: pos.y, lx: e.clientX };
-      gsap.to(wrap, { scale: isTouch ? 1.18 : 1.12, duration: 0.18, ease: "back.out(2.2)", overwrite: "auto" });
-      gsap.to(el, { "--sh": 24, duration: 0.16, ease: "power2.out" });
-      gsap.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.55, ease: "power1.inOut", overwrite: "auto" });
+      gsap.to(wrap, { scale: isTouch ? 1.18 : 1.12, duration: 0.18, ease: "back.out(2.2)", overwrite: "auto", force3D: true });
+      gsap.to(el, { "--sh": 22, duration: 0.16, ease: "power2.out" });
+      gsap.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.5, ease: "power1.inOut", overwrite: "auto" });
     });
 
     el.addEventListener("pointermove", (e) => {
@@ -223,8 +228,8 @@ function wireInteractions(sec) {
       pos.y = Math.max(-my, Math.min(my, active.oy + (e.clientY - active.sy)));
       const vx = Math.max(-10, Math.min(10, (e.clientX - active.lx) * 0.45));
       active.lx = e.clientX;
-      gsap.set(wrap, { x: pos.x, y: pos.y });
-      gsap.to(wrap, { rotation: vx, duration: 0.15, ease: "power2.out", overwrite: "auto" });
+      gsap.set(wrap, { x: pos.x, y: pos.y, force3D: true });
+      gsap.to(wrap, { rotation: vx, duration: 0.15, ease: "power2.out", overwrite: "auto", force3D: true });
     });
 
     const endDrag = (e) => {
@@ -240,12 +245,13 @@ function wireInteractions(sec) {
         y: 0,
         scale: 1,
         rotation: 0,
-        duration: 0.38,
+        duration: 0.36,
         ease: "elastic.out(1, 0.55)",
         overwrite: "auto",
+        force3D: true,
         onComplete: restoreLayer
       });
-      gsap.to(el, { "--sh": 5, duration: 0.25, ease: "power2.out" });
+      gsap.to(el, { "--sh": 5, duration: 0.22, ease: "power2.out" });
     };
 
     el.addEventListener("pointerup", endDrag);
@@ -253,81 +259,142 @@ function wireInteractions(sec) {
   });
 }
 
-function buildTimeline(sec, d, boxes) {
+function buildTimeline(sec, d, boxes, isMobile) {
   const side = d.side === "right" ? 1 : -1;
   const board = $(".board", sec);
   const note = $(".note", sec);
-  const tl = gsap.timeline({ paused: true, defaults: { overwrite: false } });
+  const tl = gsap.timeline({ paused: true, defaults: { overwrite: false, force3D: true } });
 
   tl.fromTo(
     note,
-    { x: () => -side * Math.min(window.innerWidth * 0.45, 520), rotation: d.tilt + side * -14, autoAlpha: 0 },
-    { x: 0, rotation: d.tilt, autoAlpha: 1, duration: 0.8, ease: "elastic.out(1,0.65)" },
+    { x: () => -side * Math.min(window.innerWidth * 0.35, 380), rotation: d.tilt + side * -10, autoAlpha: 0 },
+    { x: 0, rotation: d.tilt, autoAlpha: 1, duration: isMobile ? 0.48 : 0.72, ease: isMobile ? "back.out(1.4)" : "elastic.out(1,0.65)" },
     0
   );
 
   const order = boxes.slice().sort((a, b) => (a.n === d.center) - (b.n === d.center) || Number(a.el.style.zIndex) - Number(b.el.style.zIndex));
   order.forEach((b, i) => {
-    const t = 0.25 + i * 0.1;
+    const t = isMobile ? 0.08 + i * 0.045 : 0.16 + i * 0.075;
     const el = b.el;
     const rot = parseFloat(el.dataset.rot || "0");
     const big = b.n === d.center;
-    const shine = $(".shine", el);
 
+    
     tl.fromTo(
       el,
       {
-        x: () => side * board.offsetWidth * 0.95,
-        y: () => (i % 2 ? -1 : 1) * board.offsetHeight * 0.18,
-        rotation: rot + side * (28 + (i % 3) * 6),
-        scale: 1.45,
+        x: () => side * board.offsetWidth * (isMobile ? 0.55 : 0.9),
+        y: () => (i % 2 ? -1 : 1) * board.offsetHeight * 0.14,
+        rotation: rot + side * (isMobile ? 16 : 26 + (i % 3) * 6),
+        scale: isMobile ? 1.15 : 1.4,
         autoAlpha: 0
       },
-      { x: 0, y: 0, rotation: rot, scale: 1, autoAlpha: 1, duration: 0.55, ease: big ? "back.out(2.4)" : "back.out(1.6)", immediateRender: true },
+      {
+        x: 0,
+        y: 0,
+        rotation: rot,
+        scale: 1,
+        autoAlpha: 1,
+        duration: isMobile ? 0.36 : 0.5,
+        ease: big ? "back.out(2)" : "back.out(1.5)",
+        immediateRender: true
+      },
       t
     );
-    tl.fromTo(el, { "--sh": 28 }, { "--sh": 5, duration: 0.5, ease: "power2.in", immediateRender: false }, t + 0.1);
-    tl.to(el, { scaleX: 1.04, scaleY: 0.93, transformOrigin: "50% 100%", duration: 0.07, ease: "power1.out" }, t + 0.52);
-    tl.to(el, { scaleX: 1, scaleY: 1, duration: 0.18, ease: "elastic.out(1,0.5)" }, t + 0.59);
-    tl.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.55, ease: "power1.inOut", immediateRender: false }, t + 0.55);
 
-    order
-      .slice(0, i)
-      .filter((p) => p.l < b.l + b.w && p.l + p.w > b.l && p.t < b.t + b.h && p.t + p.h > b.t)
-      .slice(-2)
-      .forEach((p) => {
-        tl.fromTo(p.el, { xPercent: 0 }, { xPercent: side * 2.2, duration: 0.07, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, t + 0.54);
-      });
+    if (!isMobile) {
+      const shine = $(".shine", el);
+      tl.to(el, { scaleX: 1.04, scaleY: 0.93, transformOrigin: "50% 100%", duration: 0.07, ease: "power1.out" }, t + 0.47);
+      tl.to(el, { scaleX: 1, scaleY: 1, duration: 0.16, ease: "elastic.out(1,0.5)" }, t + 0.54);
+      tl.fromTo(shine, { "--sx": 130 }, { "--sx": -30, duration: 0.5, ease: "power1.inOut", immediateRender: false }, t + 0.5);
+
+      order
+        .slice(0, i)
+        .filter((p) => p.l < b.l + b.w && p.l + p.w > b.l && p.t < b.t + b.h && p.t + p.h > b.t)
+        .slice(-2)
+        .forEach((p) => {
+          tl.fromTo(p.el, { xPercent: 0 }, { xPercent: side * 2.2, duration: 0.07, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, t + 0.49);
+        });
+    }
   });
 
   return tl;
 }
 
+function whenSectionImagesReady(sec) {
+  const imgs = Array.from(sec.querySelectorAll("img"));
+  const waiters = imgs.map((img) => {
+    if (img.complete) {
+      return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+    }
+    return new Promise((res) => {
+      const done = () => {
+        if (img.decode) img.decode().catch(() => {}).finally(res);
+        else res();
+      };
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", res, { once: true });
+    });
+  });
+  return Promise.all(waiters);
+}
+
 function init() {
   const mm = gsap.matchMedia();
+
   DAYS.filter((d) => d.ready).forEach((d) => {
     const sec = document.getElementById(d.id);
     if (!sec) return;
     wireInteractions(sec);
 
     function run(mode) {
-      const boxes = layout(sec, d, mode);
+      const isMobile = mode === "tall";
+      let boxes = layout(sec, d, mode);
+      let ready = false;
+      const readyPromise = whenSectionImagesReady(sec).then(() => {
+        ready = true;
+        boxes = layout(sec, d, mode);
+      });
+
       if (reduce) return;
-      const tl = buildTimeline(sec, d, boxes);
+
+      let tl = null;
       let played = false;
+
       const playOnce = () => {
         if (played) return;
         played = true;
-        tl.play();
+        const start = () => {
+          tl = buildTimeline(sec, d, boxes, isMobile);
+          tl.play();
+        };
+        if (ready) start();
+        else readyPromise.then(start);
       };
-      const st = ScrollTrigger.create({ trigger: sec, start: "top 68%", once: true, onEnter: playOnce });
-      if (sec.getBoundingClientRect().top < window.innerHeight * 0.72) playOnce();
-      links.forEach((a) => {
-        if (a.dataset.id === d.id) a.addEventListener("click", playOnce);
+
+      const st = ScrollTrigger.create({
+        trigger: sec,
+        start: isMobile ? "top 88%" : "top 72%",
+        once: true,
+        onEnter: playOnce
       });
+
+      if (sec.getBoundingClientRect().top < window.innerHeight * (isMobile ? 0.9 : 0.72)) {
+        playOnce();
+      }
+
+      const navClicks = [];
+      links.forEach((a) => {
+        if (a.dataset.id === d.id) {
+          a.addEventListener("click", playOnce);
+          navClicks.push(a);
+        }
+      });
+
       return () => {
         st.kill();
-        tl.kill();
+        if (tl) tl.kill();
+        navClicks.forEach((a) => a.removeEventListener("click", playOnce));
       };
     }
 
@@ -338,5 +405,4 @@ function init() {
   window.addEventListener("load", () => ScrollTrigger.refresh());
 }
 
-const pending = Array.from(document.images).filter((i) => !i.complete);
-Promise.all(pending.map((i) => new Promise((r) => { i.onload = i.onerror = r; }))).then(init);
+init();
